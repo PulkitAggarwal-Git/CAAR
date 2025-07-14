@@ -1,0 +1,70 @@
+{% extends "layout.html" %}
+{% block container_class %} background {% endblock %}
+{% block body %}
+
+<h1 class="profile_analysis">Profile Analysis</h1>
+<div class="profile_analysis_container">
+    <div class="submission_history">
+        <h2 style="color: white;">Wrong Submission Analysis</h2>
+
+        {% set filtered_tags = tags | selectattr('0', 'ne', '*special') | selectattr('1', 'gt', 1) | list %}
+
+        <table class="profile_analysis_table">
+            <thead>
+                <tr class="table_row">
+                    <th>Tag</th>
+                    <th>Count</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for tag, count in filtered_tags %}
+
+                <tr class="table_row">
+                    <td>{{ tag | title }}</td>
+                    <td>{{ count }}</td>
+                </tr>
+
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+
+    <div class="histogram">
+        <canvas id="tag_count_chart"></canvas>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+        window.chartLabels = {{ filtered_tags | map(attribute = 0) | list | tojson }};
+        window.chartData = {{ filtered_tags | map(attribute = 1) | list | tojson }};
+    </script>
+
+    <script src="{{ url_for('static', filename='histogram.js') }}"></script>
+
+    <div class="stats">
+        <p>
+            {% if rating != 0 %}
+            Rating: {{rating}}
+            {% else %}
+            Rating: 0
+            {% endif %}
+        </p>
+
+        <p>
+            {% if rank!='no_rank' %}
+            Rank: {{rank}}
+            {% else %}
+            Rank: None
+            {% endif %}
+        </p>
+
+        <p>Problems Solved: {{problems_solved}}</p>
+        <p>Total Submissions: {{total_submissions}}</p>
+
+    </div>
+</div>
+
+
+{% endblock %}

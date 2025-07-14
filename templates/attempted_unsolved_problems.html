@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+{% block container_class %} background {% endblock %}
+{% block body %}
+
+<h1 class="recommended_problems">Attempted Unsolved Problems</h1>
+<div class="problems">
+    <ol class="bordered-list">
+        {% for name, url in problems %}
+                <li style="margin: 10px; padding: 10px;">
+                    <a href="{{ url }}" target="_blank" class="no-underline">{{ name }}</a>
+                </li>
+        {% else %}
+            No Problems.
+        {% endfor %}
+    </ol>
+</div>
+
+{% endblock %}

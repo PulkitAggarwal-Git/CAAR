@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link href="{{ url_for('static', filename = 'layout.css') }}" rel="stylesheet" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="navbar">
+            <div></div>
+            <form action="/profile_analysis" method="get">
+                <button type="submit">Analyze My Profile</button>
+            </form>
+
+            <form action="/attempted_unsolved_problems" method="get">
+                <button type="submit">Attempted Unsolved Problems</button>
+            </form>
+
+            <form action="/solved_after_many_attempts" method="get">
+                <button type="submit">Much attempted Solved Problems</button>
+            </form>
+
+            <form action="/show_suggested_problems" method="get">
+                <button type="submit">Suggested Problems</button>
+            </form>
+        </div>
+
+        <div class="main-container {% block container_class %}{% endblock %}">
+            {% block body %} {% endblock %}
+        </div>
+    </div>
+
+</body>
+
+</html>
