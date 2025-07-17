@@ -11,30 +11,47 @@
 
 <body>
     <div class="container">
-        <div class="navbar">
-            <div></div>
-            <form action="/profile_analysis" method="get">
-                <button type="submit">Analyze My Profile</button>
+        <div class="header">
+            <form action="/leetcode" method="get">
+                <button type="submit">Leetcode</button>
             </form>
 
-            <form action="/attempted_unsolved_problems" method="get">
-                <button type="submit">Attempted Unsolved Problems</button>
+            <form action="/codeforces" method="get">
+                <button type="submit">Codeforces</button>
             </form>
 
-            <form action="/solved_after_many_attempts" method="get">
-                <button type="submit">Much attempted Solved Problems</button>
-            </form>
-
-            <form action="/show_suggested_problems" method="get">
-                <button type="submit">Suggested Problems</button>
+            <form action="/hackerrank" method="get">
+                <button type="submit">Hackerrank</button>
             </form>
         </div>
+        
+        <div class="content">
+            <div class="sidebar">
+                <div></div>
 
-        <div class="main-container {% block container_class %}{% endblock %}">
-            {% block body %} {% endblock %}
+                <form action="/profile_analysis" method="get">
+                    <button type="submit">Analyze My Profile</button>
+                </form>
+
+                <form action="/attempted_unsolved_problems" method="get">
+                    <button type="submit">Attempted Unsolved Problems</button>
+                </form>
+
+                <form action="/solved_after_many_attempts" method="get">
+                    <button type="submit">Much attempted Solved Problems</button>
+                </form>
+
+                <form action="/show_suggested_problems" method="get">
+                    <button type="submit">Suggested Problems</button>
+                </form>
+            </div>
+
+            <div class="main-container {% block container_class %}{% endblock %}">
+                {% block body %} {% endblock %}
+                {% block alert %} {% endblock %}
+            </div>
         </div>
     </div>
-
 </body>
 
 </html>
