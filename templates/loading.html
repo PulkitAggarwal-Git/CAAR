@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        body{
+            background-color: rgb(14, 17, 17);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .message{
+            color: white;
+            font-size: xx-large;
+        }
+    </style>
+</head>
+<body>
+    <div class="message">
+        Please wait a minute......
+    </div>
+
+    {% if value == "suggested" %}
+    <form id="empty-form" action="{{url_for('show_suggested_problems')}}" method="POST"></form>
+
+    {% elif value == "unsolved" %}
+    <form id="empty-form" action="{{url_for('show_unsolved_problems')}}" method="POST"></form>
+
+    {% endif %}
+
+    <script>
+        setTimeout(()=>{
+            document.getElementById('empty-form').submit();
+        }, 100);
+    </script>
+</body>
+</html>

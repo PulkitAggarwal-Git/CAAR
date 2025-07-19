@@ -1,6 +1,6 @@
 window.onload = function () {
         const msgBox = document.createElement('div');
-        msgBox.innerText = "Please enter a username!";
+        msgBox.innerText = "Please enter your username!";
         msgBox.style.position = "fixed";
         msgBox.style.top = "20px";
         msgBox.style.left = "50%";

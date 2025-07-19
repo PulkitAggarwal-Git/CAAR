@@ -5,65 +5,120 @@ body{
 
 .container{
     display: flex;
+    flex-direction: column;
     height: 100vh;
 }
 
-.navbar{
+.content{
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    height: 100vh;
+}
+
+.header{
+    height: 60px;
+    background-color: black;
+    display: flex;
+    justify-content: center;
+    align-items: end;
+    gap: 10px;
+}
+
+.header button{
+    color: white;
+    flex: 1;
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: large;
+}
+
+/* .sidebar{
     width: 200px;
     background-color: black;
     display: grid;
     grid-template-columns: 150px;
     grid-template-rows: repeat(5,40px);
-    /* justify-items: center; */
+    justify-items: center;
     align-items: center;
-}
+} */
 
 
 .main-container{
     position: relative;
     flex: 1;
-    margin: 10px;
-    padding: 10px;
+    /* margin: 10px;
+    padding: 10px; */
     z-index: 0;
     overflow: auto;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    background-color: rgb(14, 17, 17);
+    text-align: center;
 }
 
-.centralize{
+/* .centralize{
+    flex: 1;
     display: flex;
     text-align: center;
     justify-content: center;
     align-items: center;
-}
+    margin-bottom: 50px;
+} */
 
-.background-blur::before{
-    content: "";
+/* .background-frontpage{
+    background-color: rgb(14, 17, 17);
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+} */
+
+#take-input{
     position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
-    z-index: -1;
-    background-image: url("https://t4.ftcdn.net/jpg/08/80/09/99/360_F_880099928_wKHSiojaiHMN42Ubvezuq4jlkBMtkm0d.jpg");
-    filter: blur(3px) brightness(0.7);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
-button{
+/* .sidebar button{
     width: 200px;
     border: none;
     background: none;
     cursor: pointer;
     color: white;
     text-align:left ;
-}
+} */
 
 .quote{
     color: white;
     font-size: xx-large;
     margin: 10px;
+    /* margin-bottom: 150px; */
     padding: 10px;
+    transform: translateY(100%);
 }
 
 .handle form input{
     margin: 10px;
     padding: 10px;
-    margin-left: 150px;
+    margin-left: 35px;
+    border-radius: 10px;
+    height: 50px;
+    width: 200px;
+}
+
+.handle button{
+    height: 30px;
+    width: 50px;
+    border-radius: 7px;
+    /* background-color: blue; */
+}
+
+#placeholder{
+    text-align: center;
 }
 
 .background{
@@ -96,12 +151,14 @@ button{
     color: white;
     margin-left: 10px;
     font-size: xx-large;
+    text-align: left;
 }
 
 .profile_analysis_container{
     display: flex;
     align-items: flex-start;
     column-gap: 30px;
+    justify-content: center;
 }
 
 .recommended_problems{
@@ -111,6 +168,7 @@ button{
 
 .problems{
     color: white;
+    text-align: left;
 }
 
 .no-underline{
@@ -127,7 +185,7 @@ button{
 
 .flash_messages li{
     color: white;
-    margin-right: 50px;
+    /* margin-right: 50px; */
 }
 
 .histogram{

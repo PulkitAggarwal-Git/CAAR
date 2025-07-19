@@ -1,12 +1,15 @@
 {% extends "layout.html" %}
-{% block container_class %} background-blur centralize{% endblock %}
-{% block body %}
+{% block handle_input %}take-input{% endblock %}
+{% block quote %}
 
-<div class="handle">
     <div class="quote">
-        "The best error message is the one that never shows up."
+        "Make your journey of Competitive Programming Easier."
     </div>
 
+{% endblock %}
+
+{% block body %}
+    <div class="handle">
     {% with messages = get_flashed_messages() %}
         {% if messages %}
             <ul class="flash_messages">
@@ -18,7 +21,7 @@
     {% endwith %}
 
     <form action="/enter" method="post">
-        <input type="text" name="username" placeholder="Enter Codeforces handle">
+        <input type="text" name="username" placeholder="Enter codeforces username" id="placeholder">
         <button type="submit">Enter</button>
     </form>
 </div>

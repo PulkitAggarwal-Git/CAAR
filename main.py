@@ -19,19 +19,19 @@ def enter():
         
         if not username:
             flash("Please enter your Codeforces username.")
-            return redirect(url_for('main', show_alert = 'true'))
+            return redirect(url_for('main'))
         
         if username:
-            session['username'] = username
-            submissions_data = fetch_submissions_data(username)     # fetch_submissions_data function is written in data_processing.py file
+            session['codeforces_id'] = username
+            submissions_data = fetch_submissions_data(username)     # fetch_submissions_data function is written in codeforces_data_processing.py file
 
             if submissions_data.get('status')=="FAILED":
                 flash("Please enter a valid username")
                 return redirect('/')
             
-            user_data = fetch_user_data(username)                   # fetch_user_data function is written in data_processing.py file
+            user_data = fetch_user_data(username)                   # fetch_user_data function is written in codeforces_data_processing.py file
         
-            tags, solved_problems, total_submissions, problems_solved = get_tags_and_solved_problems(submissions_data)            # get_tags function is written in data_processing file.py
+            tags, solved_problems, total_submissions, problems_solved = get_tags_and_solved_problems(submissions_data)            # get_tags function is written in codeforces_data_processing file.py
             session['solved_problems'] = solved_problems
             session['total_submissions'] = total_submissions
             session['problems_solved'] = problems_solved
@@ -58,7 +58,7 @@ def enter():
 
 @app.route('/profile_analysis', methods=['POST','GET'])
 def profile_analysis():
-    username = session.get('username')
+    username = session.get('codeforces_id')
     
     if username:
         return render_template('profile_analysis.html', tags = session.get('tags'), rating = session.get('user_rating'), rank = session.get('user_rank'), problems_solved = session.get('problems_solved'), total_submissions = session.get('total_submissions'))
@@ -66,21 +66,26 @@ def profile_analysis():
         return redirect(url_for('main', show_alert='true'))
     
 
-@app.route('/show_suggested_problems', methods = ['POST','GET'])
+@app.route('/load_suggested_problems', methods = ['POST','GET'])
 def show_suggested_problems():
-    username = session.get('username')
+    username = session.get('codeforces_id')
 
     if username:
-        problems = suggested_problems()                             # suggested_problmes function is written in fetch_problems.py file
-        return render_template('suggested_problems.html', problems = problems)
+        # problems = suggested_problems()                            # suggested_problmes function is written in fetch_problems.py file
+        return render_template('loading.html', value = "suggested")
 
     else:
         return redirect(url_for('main', show_alert='true'))
+    
+@app.route('/show_suggested_problems', methods = ['POST','GET'])
+def load_suggested_problems():
+    problems = suggested_problems()
+    return render_template("suggested_problems.html", problems = problems)
 
 
 @app.route('/attempted_unsolved_problems', methods = ['POST','GET'])
 def attempted_unsolved_problems():
-    username = session.get('username')
+    username = session.get('codeforces_id')
 
     if username:
         problems = session.get('tried_but_unsolved')
@@ -91,7 +96,7 @@ def attempted_unsolved_problems():
 
 @app.route('/solved_after_many_attempts', methods = ['POST','GET'])
 def solved_after_many_attempts():
-    username = session.get('username')
+    username = session.get('codeforces_id')
 
     if username:
         problems = session.get('solved_after_attempts')
@@ -99,6 +104,25 @@ def solved_after_many_attempts():
     
     else:
         return redirect(url_for('main', show_alert='true'))
+
+@app.route('/load_unsolved_problems', methods = ['POST','GET'])
+def load_unsolved_problems():
+    username = session.get('codeforces_id')
+
+    if username:
+        # problems = suggested_problems()                            # suggested_problmes function is written in fetch_problems.py file
+        return render_template('loading.html', value = "unsolved")
+
+    else:
+        return redirect(url_for('main', show_alert='true'))
+    
+@app.route('/show_unsolved_problems', methods = ['POST', 'GET'])
+def show_unsolved_problems():
+    problems1 = session.get('tried_but_unsolved')
+    problems2 = session.get('solved_after_attempts')
+    problems = problems1 + problems2
+
+    return render_template("unsolved_problems.html", problems = problems)
 
 if __name__=="__main__":
     app.run(debug=True)

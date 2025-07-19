@@ -14,13 +14,23 @@ def fetch_data(tag, rating, taken_problems, solved_problems):
             problem_name = problem["name"]
             problem_id = (problem["contestId"], problem["index"])
 
-            if "rating" in problem:
-                if (rating - 100) <= problem["rating"] <= (rating + 200) and problem_id not in taken_problems and problem_id not in solved_problems:
-                    taken_problems.add(problem_id)
-                    problems.append((problem_name, f"https://codeforces.com/problemset/problem/{problem_id[0]}/{problem_id[1]}"))
+            if rating >= 800:
+                if "rating" in problem:
+                    if (rating - 100) <= problem["rating"] <= (rating + 200) and problem_id not in taken_problems and problem_id not in solved_problems:
+                        taken_problems.add(problem_id)
+                        problems.append((problem_name, f"https://codeforces.com/problemset/problem/{problem_id[0]}/{problem_id[1]}"))
 
-                    if len(problems)==10:
-                        break
+                        if len(problems)==10:
+                            break
+
+            else:
+                if "rating" in problem:
+                    if problem["rating"] <= 900:
+                        taken_problems.add(problem_id)
+                        problems.append((problem_name, f"https://codeforces.com/problemset/problem/{problem_id[0]}/{problem_id[1]}"))
+
+                        if len(problems)==10:
+                            break
 
         return problems
 

@@ -1,13 +1,20 @@
 {% extends "layout.html" %}
-{% block container_class %} background {% endblock %}
+{% block container_class %}background{% endblock %}
 {% block body %}
 
 <h1 class="profile_analysis">Profile Analysis</h1>
+
+{% if total_submissions > 0 %}
 <div class="profile_analysis_container">
     <div class="submission_history">
         <h2 style="color: white;">Wrong Submission Analysis</h2>
 
         {% set filtered_tags = tags | selectattr('0', 'ne', '*special') | selectattr('1', 'gt', 1) | list %}
+
+        {% if filtered_tags | length == 0 %}
+        <div class="no_wrong_submission">No Wrong Submission</div>
+
+        {% else %}
 
         <table class="profile_analysis_table">
             <thead>
@@ -27,6 +34,7 @@
                 {% endfor %}
             </tbody>
         </table>
+
     </div>
 
 
@@ -42,6 +50,8 @@
     </script>
 
     <script src="{{ url_for('static', filename='histogram.js') }}"></script>
+
+    {% endif %}
 
     <div class="stats">
         <p>
@@ -66,5 +76,8 @@
     </div>
 </div>
 
+{% else %}
+<div class="warning">Please solve at least one question.</div>
+{% endif %}
 
 {% endblock %}
