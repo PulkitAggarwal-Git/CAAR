@@ -29,12 +29,63 @@
     {% elif value == "unsolved" %}
     <form id="empty-form" action="{{url_for('show_unsolved_problems')}}" method="POST"></form>
 
+    {% elif value == "dp" %}
+    <form id="empty-form" action="{{url_for('problem_routes.dp')}}" method="POST"></form>
+
+    {% elif value == "greedy" %}
+    <form id="empty-form" action="{{url_for('problem_routes.greedy')}}" method="POST"></form>
+
+    {% elif value == "sortings" %}
+    <form id="empty-form" action="{{url_for('problem_routes.sortings')}}" method="POST"></form>
+
+    {% elif value == "implementation" %}
+    <form id="empty-form" action="{{url_for('problem_routes.implementation')}}" method="POST"></form>
+
+    {% elif value == "math" %}
+    <form id="empty-form" action="{{url_for('problem_routes.math')}}" method="POST"></form>
+
+    {% elif value == "data_structures" %}
+    <form id="empty-form" action="{{url_for('problem_routes.data_structures')}}" method="POST"></form>
+
+    {% elif value == "brute_force" %}
+    <form id="empty-form" action="{{url_for('problem_routes.brute_force')}}" method="POST"></form>
+
+    {% elif value == "graphs" %}
+    <form id="empty-form" action="{{url_for('problem_routes.graphs')}}" method="POST"></form>
+
+    {% elif value == "binary_search" %}
+    <form id="empty-form" action="{{url_for('problem_routes.binary_search')}}" method="POST"></form>
+
+    {% elif value == "dfs" %}
+    <form id="empty-form" action="{{url_for('problem_routes.dfs')}}" method="POST"></form>
+
+    {% elif value == "trees" %}
+    <form id="empty-form" action="{{url_for('problem_routes.trees')}}" method="POST"></form>
+
+    {% elif value == "strings" %}
+    <form id="empty-form" action="{{url_for('problem_routes.strings')}}" method="POST"></form>
+
+    {% elif value == "d&c" %}
+    <form id="empty-form" action="{{url_for('problem_routes.divide_and_conquer')}}" method="POST"></form>
+
+    {% elif value == "dsu" %}
+    <form id="empty-form" action="{{url_for('problem_routes.dsu')}}" method="POST"></form>
+
+    {% elif value == "combinatorics" %}
+    <form id="empty-form" action="{{url_for('problem_routes.combinatorics')}}" method="POST"></form>
+
+    {% elif value == "brute_force" %}
+    <form id="empty-form" action="{{url_for('problem_routes.brute_force')}}" method="POST"></form>
+
+    {% elif value == "two_pointers" %}
+    <form id="empty-form" action="{{url_for('problem_routes.two_pointers')}}" method="POST"></form>
+
     {% endif %}
 
     <script>
         setTimeout(()=>{
             document.getElementById('empty-form').submit();
-        }, 100);
+        }, 1000);
     </script>
 </body>
 </html>

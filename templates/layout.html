@@ -10,54 +10,40 @@
 </head>
 
 <body>
-    <!-- <div class="container">
+
+    <div class="content">
         <div class="header">
-            <form action="/leetcode" method="get">
-                <button type="submit">Leetcode</button>
+            <div></div>
+
+            <form action="/profile_analysis" method="get">
+                <button type="submit">Profile</button>
             </form>
 
-            <form action="/codeforces" method="get">
-                <button type="submit">Codeforces</button>
+            <form action="/load_unsolved_problems" method="get">
+                <button type="submit">Unsolved Problems</button>
             </form>
 
-            <form action="/hackerrank" method="get">
-                <button type="submit">Hackerrank</button>
+            <form action="/load_suggested_problems" method="get">
+                <button type="submit">Suggested Problems</button>
             </form>
-        </div> -->
-        
-        <div class="content">
-            <div class="header">
-                <div></div>
 
-                <form action="/profile_analysis" method="get">
-                    <button type="submit">Profile</button>
-                </form>
+            <form action="/practice_problems" method="get">
+                <button type="submit">Practice Problems</button>
+            </form>
 
-                <form action="/load_unsolved_problems" method="get">
-                    <button type="submit">Unsolved Problems</button>
-                </form>
+            <form action="/favourites" method="get">
+                <button type="submit">Favourites</button>
+            </form>
+        </div>
+        <div class="main-container {% block container_class %}{% endblock %}">
+            {% block quote %} {% endblock %}
 
-                <!-- <form action="/solved_after_many_attempts" method="get">
-                    <button type="submit">Much attempted Solved Problems</button>
-                </form> -->
-
-                <form action="/load_suggested_problems" method="get">
-                    <button type="submit">Suggested Problems</button>
-                </form>
-
-                <form action="/favourites" method="get">
-                    <button type="submit">Favourites</button>
-                </form>
-            </div>
-            <div class=" main-container">
-                {% block quote %} {% endblock %}
-
-                <div id="{% block handle_input %}{% endblock %}">
+            <div id="{% block handle_input %}{% endblock %}">
                 {% block body %} {% endblock %}
                 {% block alert %} {% endblock %}
             </div>
-            </div>
         </div>
+    </div>
 </body>
 
 </html>

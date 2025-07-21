@@ -34,47 +34,49 @@ body{
     font-size: large;
 }
 
-/* .sidebar{
-    width: 200px;
-    background-color: black;
-    display: grid;
-    grid-template-columns: 150px;
-    grid-template-rows: repeat(5,40px);
-    justify-items: center;
-    align-items: center;
-} */
-
 
 .main-container{
     position: relative;
     flex: 1;
-    /* margin: 10px;
-    padding: 10px; */
     z-index: 0;
-    overflow: auto;
     display: flex;
     flex-direction: column;
-    height: 100vh;
     background-color: rgb(14, 17, 17);
+    text-align: left;
+    overflow: auto;
+    height: 100vh;
+    
+}
+
+.set_quote{
     text-align: center;
 }
 
-/* .centralize{
-    flex: 1;
-    display: flex;
-    text-align: center;
+.problem_tags{
+    transform: translateY(50%);
+    display: grid;
+    gap: 15px 40px;
+    grid-template-columns: repeat(5,auto);
     justify-content: center;
-    align-items: center;
-    margin-bottom: 50px;
-} */
+}
 
-/* .background-frontpage{
-    background-color: rgb(14, 17, 17);
-    display: flex;
+.problem_tags form button{
+    height: 60px;
+    width: 150px;
+    border-radius: 10px;
+}
+
+.problem_tags form button:hover{
+    color: blue;
+}
+
+.select_topic{
+    color: white;
+    font-size: xx-large;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     text-align: center;
-    justify-content: center;
-    align-items: center;
-} */
+    transform: translateY(150%);
+}
 
 #take-input{
     position: absolute;
@@ -83,20 +85,10 @@ body{
     transform: translate(-50%, -50%);
 }
 
-/* .sidebar button{
-    width: 200px;
-    border: none;
-    background: none;
-    cursor: pointer;
-    color: white;
-    text-align:left ;
-} */
-
 .quote{
     color: white;
     font-size: xx-large;
     margin: 10px;
-    /* margin-bottom: 150px; */
     padding: 10px;
     transform: translateY(100%);
 }
@@ -114,16 +106,12 @@ body{
     height: 30px;
     width: 50px;
     border-radius: 7px;
-    /* background-color: blue; */
 }
 
 #placeholder{
     text-align: center;
 }
 
-.background{
-    background-color: rgb(11, 0, 0);
-}
 
 .table_row th, .table_row td{
     margin: 5px;
@@ -185,7 +173,6 @@ body{
 
 .flash_messages li{
     color: white;
-    /* margin-right: 50px; */
 }
 
 .histogram{

@@ -2,7 +2,7 @@ from flask import session
 import requests
 import json
 
-def fetch_data(tag, rating, taken_problems, solved_problems):
+def fetch_data(tag, rating, taken_problems, solved_problems, max_len):
     url = f"https://codeforces.com/api/problemset.problems?tags={tag}"
     response = requests.get(url)
     data = response.json()
@@ -20,7 +20,7 @@ def fetch_data(tag, rating, taken_problems, solved_problems):
                         taken_problems.add(problem_id)
                         problems.append((problem_name, f"https://codeforces.com/problemset/problem/{problem_id[0]}/{problem_id[1]}"))
 
-                        if len(problems)==10:
+                        if len(problems)==max_len:
                             break
 
             else:
@@ -29,10 +29,11 @@ def fetch_data(tag, rating, taken_problems, solved_problems):
                         taken_problems.add(problem_id)
                         problems.append((problem_name, f"https://codeforces.com/problemset/problem/{problem_id[0]}/{problem_id[1]}"))
 
-                        if len(problems)==10:
+                        if len(problems)==max_len:
                             break
 
         return problems
+
 
 def suggested_problems():
     try:
@@ -46,7 +47,7 @@ def suggested_problems():
         for i, (tag, count) in enumerate(tags):
             if i >= 10:
                 break
-            tag_problems = fetch_data(tag, rating, taken_problems, solved_problems)
+            tag_problems = fetch_data(tag, rating, taken_problems, solved_problems, 10)
             problems.append(tag_problems)
 
         problems = sum(problems, [])

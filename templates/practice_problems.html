@@ -1,0 +1,81 @@
+{% extends "layout.html" %}
+{% block body %}
+
+<div class="tags">
+    <div class="select_topic">Select Topic</div>
+
+    <div class="problem_tags">
+    <form action="/practice_problems/load_implementation" method="GET">
+        <button type="submit">Implementation</button>
+    </form>
+
+    <form action="/practice_problems/load_math" method="GET">
+        <button type="submit">Maths</button>
+    </form>
+
+    <form action="/practice_problems/load_data_structures" method="GET">
+        <button type="submit">Data Structures</button>
+    </form>
+
+    <form action="/practice_problems/load_brute_force" method="GET">
+        <button type="submit">Brute Force</button>
+    </form>
+
+    <form action="/practice_problems/load_dp" method="GET">
+        <button type="submit">Dynamic Programming</button>
+    </form>
+
+    <form action="/practice_problems/load_greedy" method="GET">
+        <button type="submit">Greedy</button>
+    </form>
+
+    <form action="/practice_problems/load_constructive" method="GET">
+        <button type="submit">Constructive Algorithms</button>
+    </form>
+
+    <form action="/practice_problems/load_sortings" method="GET">
+        <button type="submit">Sortings</button>
+    </form>
+
+    <form action="/practice_problems/load_graphs" method="GET">
+        <button type="submit">Graphs</button>
+    </form>
+
+    <form action="/practice_problems/load_binary search" method="GET">
+        <button type="submit">Binary Search</button>
+    </form>
+
+    <form action="/practice_problems/load_dfs" method="GET">
+        <button type="submit">DFS</button>
+    </form>
+
+    <form action="/practice_problems/load_trees" method="GET">
+        <button type="submit">Trees</button>
+    </form>
+
+    <form action="/practice_problems/load_strings" method="GET">
+        <button type="submit">Strings</button>
+    </form>
+
+    <form action="/practice_problems/load_combinatorics" method="GET">
+        <button type="submit">Combinatorics</button>
+    </form>
+
+    <form action="/practice_problems/load_bitmasks" method="GET">
+        <button type="submit">Bitmasks</button>
+    </form>
+
+    <form action="/practice_problems/load_two_pointers" method="GET">
+        <button type="submit">Two Pointers</button>
+    </form>
+
+    <form action="/practice_problems/load_dsu" method="GET">
+        <button type="submit">DSU</button>
+    </form>
+
+    <form action="/practice_problems/load_divide_and_conquer" method="GET">
+        <button type="submit">Divide and Conquer</button>
+    </form>
+</div>
+</div>
+{% endblock %}
