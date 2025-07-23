@@ -2,24 +2,25 @@
 {% block container_class %}background{% endblock %}
 {% block body %}
 
-{% if problems %}
-<h1 class="recommended_problems">Top Recommended Problems</h1>
+{% if favourites %}
+<h1 class="recommended_problems">Favourites</h1>
 <div class="problems">
     <ol class="bordered-list">
-        {% for name, url in problems %}
+        {% for fav in favourites %}
         <li style="width: 40vw; list-style-position: outside;">
             <div class="favourites">
-                <a href="{{ url }}" target="_blank" class="no-underline">{{ name }}</a>
-                <button onclick="addToFavourites('{{name}}')">Add to favourites</button>
+                <a href="{{ fav.url }}" target="_blank" class="no-underline">{{ fav.name }}</a>
+                <button onclick="removeFromFavourites('{{fav.name}}','{{fav.url}}')">Remove from favourites</button>
             </div>
         </li>
         {% endfor %}
     </ol>
+
 </div>
 
 {% else %}
 <div style="color: white; font-size: x-large; transform: translateY(100%)">There are no problems in this section.</div>
 
 {% endif %}
-<script src="{{url_for('static', filename = 'add_favourites.js')}}"></script>
+<script src="{{url_for('static', filename = 'remove_favourites.js')}}"></script>
 {% endblock %}

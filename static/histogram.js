@@ -1,5 +1,3 @@
-console.log("Loaded");
-
 document.addEventListener('DOMContentLoaded', function () {
     const ctx = document.getElementById('tag_count_chart').getContext('2d');
 

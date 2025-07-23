@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, session, redirect, flash, url_for, Blueprint
 from fetch_problems import fetch_data
+from data_processing import get_solved_problems
 
 problem_routes = Blueprint('problem_routes', __name__, url_prefix = '/practice_problems')
 
@@ -11,7 +12,7 @@ def load_dp():
 def dp():
     username = session.get('codeforces_id')
     rating = session.get('user_rating')
-    solved_problems = set(session.get('solved_problems'))
+    solved_problems = get_solved_problems(username)
     taken_problems = set()
     problems = fetch_data("dp", rating, taken_problems, solved_problems, 50)
     return render_template("display_practice_problems.html", problems = problems)
@@ -24,7 +25,7 @@ def load_greedy():
 def greedy():
     username = session.get('codeforces_id')
     rating = session.get('user_rating')
-    solved_problems = set(session.get('solved_problems'))
+    solved_problems = get_solved_problems(username)
     taken_problems = set()
     problems = fetch_data("greedy", rating, taken_problems, solved_problems, 50)
     return render_template("display_practice_problems.html", problems = problems)
@@ -37,7 +38,7 @@ def load_constructive():
 def constructive():
     username = session.get('codeforces_id')
     rating = session.get('user_rating')
-    solved_problems = set(session.get('solved_problems'))
+    solved_problems = get_solved_problems(username)
     taken_problems = set()
     problems = fetch_data("constructive algorithms", rating, taken_problems, solved_problems, 50)
     return render_template("display_practice_problems.html", problems = problems)
@@ -51,7 +52,7 @@ def load_sortings():
 def sortings():
     username = session.get('codeforces_id')
     rating = session.get('user_rating')
-    solved_problems = set(session.get('solved_problems'))
+    solved_problems = get_solved_problems(username)
     taken_problems = set()
     problems = fetch_data("sortings", rating, taken_problems, solved_problems, 50)
     return render_template("display_practice_problems.html", problems = problems)
@@ -64,7 +65,7 @@ def load_implementation():
 def implementation():
     username = session.get('codeforces_id')
     rating = session.get('user_rating')
-    solved_problems = set(session.get('solved_problems'))
+    solved_problems = get_solved_problems(username)
     taken_problems = set()
     problems = fetch_data("implementation", rating, taken_problems, solved_problems, 50)
     return render_template("display_practice_problems.html", problems = problems)
@@ -77,7 +78,7 @@ def load_math():
 def math():
     username = session.get('codeforces_id')
     rating = session.get('user_rating')
-    solved_problems = set(session.get('solved_problems'))
+    solved_problems = get_solved_problems(username)
     taken_problems = set()
     problems = fetch_data("math", rating, taken_problems, solved_problems, 50)
     return render_template("display_practice_problems.html", problems = problems)
@@ -90,7 +91,7 @@ def load_data_structures():
 def data_structures():
     username = session.get('codeforces_id')
     rating = session.get('user_rating')
-    solved_problems = set(session.get('solved_problems'))
+    solved_problems = get_solved_problems(username)
     taken_problems = set()
     problems = fetch_data("data_structures", rating, taken_problems, solved_problems, 50)
     return render_template("display_practice_problems.html", problems = problems)
@@ -103,7 +104,7 @@ def load_brute_force():
 def brute_force():
     username = session.get('codeforces_id')
     rating = session.get('user_rating')
-    solved_problems = set(session.get('solved_problems'))
+    solved_problems = get_solved_problems(username)
     taken_problems = set()
     problems = fetch_data("brute force", rating, taken_problems, solved_problems, 50)
     return render_template("display_practice_problems.html", problems = problems)
@@ -116,7 +117,7 @@ def load_graphs():
 def graphs():
     username = session.get('codeforces_id')
     rating = session.get('user_rating')
-    solved_problems = set(session.get('solved_problems'))
+    solved_problems = get_solved_problems(username)
     taken_problems = set()
     problems = fetch_data("graphs", rating, taken_problems, solved_problems, 50)
     return render_template("display_practice_problems.html", problems = problems)
@@ -129,7 +130,7 @@ def load_binary_search():
 def binary_search():
     username = session.get('codeforces_id')
     rating = session.get('user_rating')
-    solved_problems = set(session.get('solved_problems'))
+    solved_problems = get_solved_problems(username)
     taken_problems = set()
     problems = fetch_data("binary search", rating, taken_problems, solved_problems, 50)
     return render_template("display_practice_problems.html", problems = problems)
@@ -142,7 +143,7 @@ def load_dfs():
 def dfs():
     username = session.get('codeforces_id')
     rating = session.get('user_rating')
-    solved_problems = set(session.get('solved_problems'))
+    solved_problems = get_solved_problems(username)
     taken_problems = set()
     problems = fetch_data("dfs and similar", rating, taken_problems, solved_problems, 50)
     return render_template("display_practice_problems.html", problems = problems)
@@ -155,7 +156,7 @@ def load_trees():
 def trees():
     username = session.get('codeforces_id')
     rating = session.get('user_rating')
-    solved_problems = set(session.get('solved_problems'))
+    solved_problems = get_solved_problems(username)
     taken_problems = set()
     problems = fetch_data("trees", rating, taken_problems, solved_problems, 50)
     return render_template("display_practice_problems.html", problems = problems)
@@ -168,7 +169,7 @@ def load_strings():
 def strings():
     username = session.get('codeforces_id')
     rating = session.get('user_rating')
-    solved_problems = set(session.get('solved_problems'))
+    solved_problems = get_solved_problems(username)
     taken_problems = set()
     problems = fetch_data("strings", rating, taken_problems, solved_problems, 50)
     return render_template("display_practice_problems.html", problems = problems)
@@ -181,7 +182,7 @@ def load_divide_and_conquer():
 def divide_and_conquer():
     username = session.get('codeforces_id')
     rating = session.get('user_rating')
-    solved_problems = set(session.get('solved_problems'))
+    solved_problems = get_solved_problems(username)
     taken_problems = set()
     problems = fetch_data("divide_and_conquer", rating, taken_problems, solved_problems, 50)
     return render_template("display_practice_problems.html", problems = problems)
@@ -194,7 +195,7 @@ def load_dsu():
 def dsu():
     username = session.get('codeforces_id')
     rating = session.get('user_rating')
-    solved_problems = set(session.get('solved_problems'))
+    solved_problems = get_solved_problems(username)
     taken_problems = set()
     problems = fetch_data("dsu", rating, taken_problems, solved_problems, 50)
     return render_template("display_practice_problems.html", problems = problems)
@@ -207,7 +208,7 @@ def load_combinatorics():
 def combinatorics():
     username = session.get('codeforces_id')
     rating = session.get('user_rating')
-    solved_problems = set(session.get('solved_problems'))
+    solved_problems = get_solved_problems(username)
     taken_problems = set()
     problems = fetch_data("combinatorics", rating, taken_problems, solved_problems, 50)
     return render_template("display_practice_problems.html", problems = problems)
@@ -220,7 +221,7 @@ def load_bitmasks():
 def bitmasks():
     username = session.get('codeforces_id')
     rating = session.get('user_rating')
-    solved_problems = set(session.get('solved_problems'))
+    solved_problems = get_solved_problems(username)
     taken_problems = set()
     problems = fetch_data("bitmasks", rating, taken_problems, solved_problems, 50)
     return render_template("display_practice_problems.html", problems = problems)
@@ -233,7 +234,7 @@ def load_two_pointers():
 def two_pointers():
     username = session.get('codeforces_id')
     rating = session.get('user_rating')
-    solved_problems = set(session.get('solved_problems'))
+    solved_problems = get_solved_problems(username)
     taken_problems = set()
     problems = fetch_data("two pointers", rating, taken_problems, solved_problems, 50)
     return render_template("display_practice_problems.html", problems = problems)

@@ -103,8 +103,8 @@ body{
 }
 
 .handle button{
-    height: 30px;
-    width: 50px;
+    height: 70px;
+    width: 60px;
     border-radius: 7px;
 }
 
@@ -154,9 +154,25 @@ body{
     text-align: center;
 }
 
-.problems{
+.favourites{
     color: white;
-    text-align: left;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.favourites button{
+    background: none;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: large;
+}
+
+.favourites a{
+    font-size: large;
+    padding: 5px;
 }
 
 .no-underline{
@@ -173,6 +189,7 @@ body{
 
 .flash_messages li{
     color: white;
+    list-style-type: none;
 }
 
 .histogram{

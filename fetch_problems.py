@@ -1,6 +1,7 @@
 from flask import session
 import requests
 import json
+from data_processing import get_solved_problems
 
 def fetch_data(tag, rating, taken_problems, solved_problems, max_len):
     url = f"https://codeforces.com/api/problemset.problems?tags={tag}"
@@ -38,10 +39,11 @@ def fetch_data(tag, rating, taken_problems, solved_problems, max_len):
 def suggested_problems():
     try:
         problems = []
+        username = session.get('codeforces_id')
         rating = session.get('user_rating')
 
         tags = session.get('tags')
-        solved_problems = set(session.get('solved_problems'))
+        solved_problems = get_solved_problems(username)
         taken_problems = set()
         
         for i, (tag, count) in enumerate(tags):

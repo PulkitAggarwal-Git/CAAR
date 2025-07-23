@@ -2,15 +2,24 @@
 {% block container_class %}background{% endblock %}
 {% block body %}
 
+{% if problems %}
 <h1 class="recommended_problems">Unsolved Problems</h1>
-    <div class="problems">
-        <ol class="bordered-list">
-            {% for name, url in problems %}
-            <li style="margin: 10px; padding: 10px;">
-                <a href="{{ url }}" target="_blank"  class="no-underline">{{ name }}</a>
-            </li>
-            {% endfor %}
-        </ol>
-    </div>
+<div class="problems">
+    <ol class="bordered-list">
+        {% for name, url in problems %}
+        <li style="width: 40vw; list-style-position: outside;">
+            <div class="favourites">
+                <a href="{{ url }}" target="_blank" class="no-underline">{{ name }}</a>
+                <button onclick="addToFavourites('{{name}}','{{url}}')">Add to favourites</button>
+            </div>
+        </li>
+        {% endfor %}
+    </ol>
 
+</div>
+{% else %}
+<div style="color: white; font-size: x-large; transform: translateY(100%)">There are no problems in this section.</div>
+
+{% endif %}
+<script src="{{url_for('static', filename = 'add_favourites.js')}}"></script>
 {% endblock %}

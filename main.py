@@ -1,12 +1,20 @@
-from flask import Flask, render_template, request, session, redirect, flash, url_for, Blueprint
-from data_processing import fetch_submissions_data, get_tags_and_solved_problems, analyze_user_problems, fetch_user_data
+from flask import Flask, render_template, request, session, redirect, flash, url_for, Blueprint, jsonify
+from data_processing import fetch_submissions_data, get_tags_and_solved_problems, analyze_user_problems, fetch_user_data, store_solved_problems
 from fetch_problems import suggested_problems
 from routes.problem_routes import problem_routes
+from database import db, User, Favourites
 
 app = Flask(__name__)
 app.secret_key = "caar"
 
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+db.init_app(app)
+
 app.register_blueprint(problem_routes)
+
+submissions_data = {}
 
 @app.route('/')
 def main():
@@ -24,6 +32,7 @@ def enter():
             return redirect(url_for('main'))
         
         if username:
+            global submissions_data
             session['codeforces_id'] = username
             submissions_data = fetch_submissions_data(username)     # fetch_submissions_data function is written in codeforces_data_processing.py file
 
@@ -34,16 +43,17 @@ def enter():
             user_data = fetch_user_data(username)                   # fetch_user_data function is written in codeforces_data_processing.py file
         
             tags, solved_problems, total_submissions, problems_solved = get_tags_and_solved_problems(submissions_data)            # get_tags function is written in codeforces_data_processing file.py
-            session['solved_problems'] = solved_problems
             session['total_submissions'] = total_submissions
             session['problems_solved'] = problems_solved
             
+            store_solved_problems(username, solved_problems)
+
             sorted_tags = sorted(tags.items(), key=lambda x: x[1], reverse=True)
             session['tags'] = sorted_tags
             
-            tried_but_unsolved, solved_after_attempts = analyze_user_problems(submissions_data)
-            session['tried_but_unsolved'] = tried_but_unsolved
-            session['solved_after_attempts'] = solved_after_attempts
+            # unsolved_problems = analyze_user_problems(submissions_data)
+            
+            # store_unsolved_problems(unsolved_problems)
             
             if "rating" in user_data["result"][0]:
                 session['user_rating'] = user_data["result"][0]["rating"]
@@ -54,6 +64,8 @@ def enter():
                 session['user_rank'] = user_data["result"][0]["rank"]
             else:
                 session['user_rank'] = "no_rank"
+
+            flash("Data Fetched Successfully. You can select any of the above options.")
 
     return redirect('/')
 
@@ -96,11 +108,9 @@ def load_unsolved_problems():
     
 @app.route('/show_unsolved_problems', methods = ['POST', 'GET'])
 def show_unsolved_problems():
-    problems1 = session.get('tried_but_unsolved')
-    problems2 = session.get('solved_after_attempts')
-    problems = problems1 + problems2
+    unsolved_problems = analyze_user_problems(submissions_data)
 
-    return render_template("unsolved_problems.html", problems = problems)
+    return render_template("unsolved_problems.html", problems = unsolved_problems)
 
 @app.route('/practice_problems', methods = ['POST','GET'])
 def practice_problems():
@@ -111,6 +121,58 @@ def practice_problems():
 
     else:
         return redirect(url_for('main', show_alert='true'))
+    
+@app.route('/add_to_favourites', methods = ['POST','GET'])
+def add_to_favourites():
+    data = request.get_json()
+    problem_name = data.get("name")
+    problem_url = data.get("url")
+    username = session.get('codeforces_id')
+    user = User.query.filter_by(username=username).first()
+
+    existing = Favourites.query.filter_by(user_id=user.id, problem_name=problem_name).first()
+    if existing:
+        return jsonify({'message':'Already in favourites!'})
+    
+    new_fav = Favourites(user_id=user.id, problem_name=problem_name, problem_url=problem_url)
+    db.session.add(new_fav)
+    db.session.commit()
+
+    return jsonify({'message':'Added to favourites!'})
+
+@app.route('/get_favourites', methods = ['POST','GET'])
+def favourites():
+    username = session.get('codeforces_id')
+    
+    if username:
+        user = User.query.filter_by(username=username).first()
+
+        favourites = Favourites.query.filter_by(user_id=user.id).all()
+        fav_list = [
+            {'name':fav.problem_name, 'url':fav.problem_url}
+            for fav in favourites
+        ]
+
+        return render_template("favourites.html", favourites = fav_list)
+
+    else:
+        return redirect(url_for('main', show_alert='true'))
+    
+@app.route('/remove_from_favourites', methods = ['POST','GET'])
+def remove_from_favourites():
+    username = session.get('codeforces_id')
+    data = request.get_json()
+    problem_name = data.get("name")
+    problem_url = data.get("url")
+
+    user = User.query.filter_by(username=username).first()
+
+    Favourites.query.filter_by(user_id=user.id, problem_name=problem_name, problem_url=problem_url).delete()
+    db.session.commit()
+    return jsonify({"success":True})
+
 
 if __name__=="__main__":
+    with app.app_context():
+        db.create_all()
     app.run(debug=True)
