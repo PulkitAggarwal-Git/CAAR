@@ -36,11 +36,19 @@ def enter():
             session['codeforces_id'] = username
             submissions_data = fetch_submissions_data(username)     # fetch_submissions_data function is written in codeforces_data_processing.py file
 
+            if submissions_data is None:
+                flash("Codeforces is not responding. Please try again later.")
+                return redirect('/')
+
             if submissions_data.get('status')=="FAILED":
                 flash("Please enter a valid username")
                 return redirect('/')
             
             user_data = fetch_user_data(username)                   # fetch_user_data function is written in codeforces_data_processing.py file
+
+            if user_data is None:
+                flash("Codeforces is not responding. Please try again later.")
+                return redirect('/')
         
             tags, solved_problems, total_submissions, problems_solved = get_tags_and_solved_problems(submissions_data)            # get_tags function is written in codeforces_data_processing file.py
             session['total_submissions'] = total_submissions

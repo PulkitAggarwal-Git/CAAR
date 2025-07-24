@@ -15,7 +15,16 @@ def fetch_data(tag, rating, taken_problems, solved_problems, max_len):
             problem_name = problem["name"]
             problem_id = (problem["contestId"], problem["index"])
 
-            if rating >= 800:
+            if rating < 800:
+                if "rating" in problem:
+                    if problem["rating"] <= 900:
+                        taken_problems.add(problem_id)
+                        problems.append((problem_name, f"https://codeforces.com/problemset/problem/{problem_id[0]}/{problem_id[1]}"))
+
+                        if len(problems)==max_len:
+                            break
+
+            elif rating <= 1600:
                 if "rating" in problem:
                     if (rating - 100) <= problem["rating"] <= (rating + 200) and problem_id not in taken_problems and problem_id not in solved_problems:
                         taken_problems.add(problem_id)
@@ -24,9 +33,27 @@ def fetch_data(tag, rating, taken_problems, solved_problems, max_len):
                         if len(problems)==max_len:
                             break
 
+            elif rating <= 2000:
+                if "rating" in problem:
+                    if (rating - 100) <= problem["rating"] <= (rating + 300) and problem_id not in taken_problems and problem_id not in solved_problems:
+                        taken_problems.add(problem_id)
+                        problems.append((problem_name, f"https://codeforces.com/problemset/problem/{problem_id[0]}/{problem_id[1]}"))
+
+                        if len(problems)==max_len:
+                            break
+
+            elif rating <= 2500:
+                if "rating" in problem:
+                    if (rating - 100) <= problem["rating"] <= (rating + 400) and problem_id not in taken_problems and problem_id not in solved_problems:
+                        taken_problems.add(problem_id)
+                        problems.append((problem_name, f"https://codeforces.com/problemset/problem/{problem_id[0]}/{problem_id[1]}"))
+
+                        if len(problems)==max_len:
+                            break
+            
             else:
                 if "rating" in problem:
-                    if problem["rating"] <= 900:
+                    if (rating - 100) <= problem["rating"] <= (rating + 500) and problem_id not in taken_problems and problem_id not in solved_problems:
                         taken_problems.add(problem_id)
                         problems.append((problem_name, f"https://codeforces.com/problemset/problem/{problem_id[0]}/{problem_id[1]}"))
 

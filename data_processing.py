@@ -5,15 +5,29 @@ from database import db, User, SolvedProblems
 
 def fetch_submissions_data(handle):
     url = f"https://codeforces.com/api/user.status?handle={handle}"
-    response = requests.get(url)
-    data = response.json()
-    return data
+    try:
+        response = requests.get(url)
+        if response.status_code!=200:
+            return None
+        
+        data = response.json()
+        return data
+    
+    except requests.exceptions.RequestException:
+        return None
 
 def fetch_user_data(handle):
     url = f"https://codeforces.com/api/user.info?handles={handle}"
-    response = requests.get(url)
-    data = response.json()
-    return data
+    try:
+        response = requests.get(url)
+        if response.status_code!=200:
+            return None
+        
+        data = response.json()
+        return data
+    
+    except requests.exceptions.RequestException:
+        return None
 
 def get_tags_and_solved_problems(data):
     
