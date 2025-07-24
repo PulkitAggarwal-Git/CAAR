@@ -34,7 +34,7 @@ def enter():
         if username:
             global submissions_data
             session['codeforces_id'] = username
-            submissions_data = fetch_submissions_data(username)     # fetch_submissions_data function is written in codeforces_data_processing.py file
+            submissions_data = fetch_submissions_data(username) # fetch_submissions_data function is written in data_processing.py file
 
             if submissions_data is None:
                 flash("Codeforces is not responding. Please try again later.")
@@ -44,13 +44,13 @@ def enter():
                 flash("Please enter a valid username")
                 return redirect('/')
             
-            user_data = fetch_user_data(username)                   # fetch_user_data function is written in codeforces_data_processing.py file
+            user_data = fetch_user_data(username) # fetch_user_data function is written in data_processing.py file
 
             if user_data is None:
                 flash("Codeforces is not responding. Please try again later.")
                 return redirect('/')
         
-            tags, solved_problems, total_submissions, problems_solved = get_tags_and_solved_problems(submissions_data)            # get_tags function is written in codeforces_data_processing file.py
+            tags, solved_problems, total_submissions, problems_solved = get_tags_and_solved_problems(submissions_data) # get_tags function is written in data_processing file.py
             session['total_submissions'] = total_submissions
             session['problems_solved'] = problems_solved
             
@@ -58,10 +58,6 @@ def enter():
 
             sorted_tags = sorted(tags.items(), key=lambda x: x[1], reverse=True)
             session['tags'] = sorted_tags
-            
-            # unsolved_problems = analyze_user_problems(submissions_data)
-            
-            # store_unsolved_problems(unsolved_problems)
             
             if "rating" in user_data["result"][0]:
                 session['user_rating'] = user_data["result"][0]["rating"]
@@ -100,7 +96,7 @@ def load_suggested_problems():
     
 @app.route('/show_suggested_problems', methods = ['POST','GET'])
 def show_suggested_problems():
-    problems = suggested_problems()                               # suggested_problmes function is written in fetch_problems.py file
+    problems = suggested_problems()   # suggested_problmes function is written in fetch_problems.py file
     return render_template("suggested_problems.html", problems = problems)
 
 

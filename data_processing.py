@@ -7,7 +7,7 @@ def fetch_submissions_data(handle):
     url = f"https://codeforces.com/api/user.status?handle={handle}"
     try:
         response = requests.get(url)
-        if response.status_code!=200:
+        if response.status_code!=200 and response.status_code!=400:
             return None
         
         data = response.json()
@@ -49,8 +49,6 @@ def get_tags_and_solved_problems(data):
     return tag_counter, solved_problems, len(data["result"]), len(solved_problems)
 
 def analyze_user_problems(data):
-    # tried_but_unsolved = []
-    # solved_after_attempts = []
     unsolved_problems = []
 
     if data.get("status") == "OK":
