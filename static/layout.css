@@ -64,6 +64,7 @@ body{
     height: 60px;
     width: 150px;
     border-radius: 10px;
+    font-size: 20px;
 }
 
 .problem_tags form button:hover{
