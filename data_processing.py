@@ -1,7 +1,7 @@
 import requests
 import json
 from collections import Counter
-from database import db, User, SolvedProblems
+from database import db, User, SolvedProblems, UnsolvedProblems
 
 def fetch_submissions_data(handle):
     url = f"https://codeforces.com/api/user.status?handle={handle}"
@@ -111,3 +111,35 @@ def get_solved_problems(handle):
             continue
 
     return solved_problems
+
+def store_unsolved_problems(handle, unsolved_problems):
+    user = User.query.filter_by(username=handle).first()
+
+    if not user:
+        user = User(username=handle)
+        db.session.add(user)
+        db.session.commit()
+
+    for problem_name, url in unsolved_problems:
+            existing = UnsolvedProblems.query.filter_by(user_id=user.id, problem_name=problem_name).first()
+            
+            if not existing:
+                unsolved = UnsolvedProblems(user_id=user.id, problem_name=problem_name, problem_url=url)
+                db.session.add(unsolved)
+
+    db.session.commit()
+
+def get_unsolved_problems(handle):
+    user = User.query.filter_by(username=handle).first()
+    unsolved = UnsolvedProblems.query.filter_by(user_id=user.id).all()
+
+    unsolved_problems = []
+
+    for problem in unsolved:
+        try:
+            problem_name, problem_url = problem.problem_name, problem.problem_url
+            unsolved_problems.append((problem_name, problem_url))
+        except ValueError:
+            continue
+
+    return unsolved_problems

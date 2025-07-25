@@ -10,7 +10,13 @@ class User(db.Model):
 class SolvedProblems(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-    problem_id = db.Column(db.String)
+    problem_id = db.Column(db.String(50))
+
+class UnsolvedProblems(db.Model):
+    id = db.Column(db.Integer, primary_key = True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    problem_name = db.Column(db.String(50))
+    problem_url = db.Column(db.String(50))
 
 class Favourites(db.Model):
     id = db.Column(db.Integer, primary_key = True)

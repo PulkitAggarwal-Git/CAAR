@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, session, redirect, flash, url_for, Blueprint, jsonify
-from data_processing import fetch_submissions_data, get_tags_and_solved_problems, analyze_user_problems, fetch_user_data, store_solved_problems
+from data_processing import fetch_submissions_data, get_tags_and_solved_problems, analyze_user_problems, fetch_user_data, store_solved_problems, store_unsolved_problems, get_unsolved_problems
 from fetch_problems import suggested_problems
 from routes.problem_routes import problem_routes
 from database import db, User, Favourites
@@ -14,13 +14,10 @@ db.init_app(app)
 
 app.register_blueprint(problem_routes)
 
-submissions_data = {}
-
 @app.route('/')
 def main():
     show_alert = request.args.get('show_alert')
     return render_template('index.html', show_alert = show_alert)
-
 
 @app.route('/enter', methods=['POST','GET'])
 def enter():
@@ -35,6 +32,9 @@ def enter():
             global submissions_data
             session['codeforces_id'] = username
             submissions_data = fetch_submissions_data(username) # fetch_submissions_data function is written in data_processing.py file
+
+            unsolved_problems = analyze_user_problems(submissions_data)
+            store_unsolved_problems(username, unsolved_problems)
 
             if submissions_data is None:
                 flash("Codeforces is not responding. Please try again later.")
@@ -112,7 +112,8 @@ def load_unsolved_problems():
     
 @app.route('/show_unsolved_problems', methods = ['POST', 'GET'])
 def show_unsolved_problems():
-    unsolved_problems = analyze_user_problems(submissions_data)
+    username = session.get('codeforces_id')
+    unsolved_problems = get_unsolved_problems(username)
 
     return render_template("unsolved_problems.html", problems = unsolved_problems)
 
@@ -178,5 +179,6 @@ def remove_from_favourites():
 
 if __name__=="__main__":
     with app.app_context():
+        db.drop_all()
         db.create_all()
     app.run(debug=True)
