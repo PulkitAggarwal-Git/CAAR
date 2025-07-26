@@ -29,7 +29,6 @@ def enter():
             return redirect(url_for('main'))
         
         if username:
-            global submissions_data
             session['codeforces_id'] = username
             submissions_data = fetch_submissions_data(username) # fetch_submissions_data function is written in data_processing.py file
 
