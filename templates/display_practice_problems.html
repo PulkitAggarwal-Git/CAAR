@@ -5,7 +5,7 @@
 <div class="problems">
     <ol class="bordered-list">
         {% for name, url in problems %}
-        <li style="width: 50vw; list-style-position: outside;">
+        <li class="problems-list">
             <div class="favourites">
             <a href="{{ url }}" target="_blank" class="no-underline">{{ name }}</a>
             <button onclick="addToFavourites('{{ name }}','{{url}}')">Add to favourites</button>

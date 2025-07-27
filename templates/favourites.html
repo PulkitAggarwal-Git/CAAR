@@ -7,7 +7,7 @@
 <div class="problems">
     <ol class="bordered-list">
         {% for fav in favourites %}
-        <li style="width: 40vw; list-style-position: outside;">
+        <li class="problems-list">
             <div class="favourites">
                 <a href="{{ fav.url }}" target="_blank" class="no-underline">{{ fav.name }}</a>
                 <button onclick="removeFromFavourites('{{fav.name}}','{{fav.url}}')">Remove from favourites</button>
