@@ -42,10 +42,11 @@ def get_tags_and_solved_problems(data):
             if "verdict" in submission:
                 if submission["verdict"] != "OK" and problem_id not in seen_problems:
                     tag_counter.update(submission["problem"]["tags"])
-                    seen_problems.add(problem_id)  
+                    seen_problems.add(problem_id)
 
                 if submission["verdict"] == "OK":
                     solved_problems.append(problem_id)
+    print(tag_counter)
     return tag_counter, solved_problems, len(data["result"]), len(solved_problems)
 
 def analyze_user_problems(data):

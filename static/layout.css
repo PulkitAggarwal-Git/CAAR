@@ -150,6 +150,10 @@ body {
     text-align: center;
 }
 
+.no_wrong_submission{
+    color: white;
+    text-align: center;
+}
 
 .table_row th,
 .table_row td {

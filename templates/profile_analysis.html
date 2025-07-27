@@ -8,10 +8,10 @@
     <div class="submission_history">
         <h2 style="color: white;">Wrong Submission Analysis</h2>
 
-        {% set filtered_tags = tags | selectattr('0', 'ne', '*special') | selectattr('1', 'gt', 1) | list %}
+        {% set filtered_tags = tags | selectattr('0', 'ne', '*special') | list %}
 
         {% if filtered_tags | length == 0 %}
-        <div class="no_wrong_submission">No Wrong Submission</div>
+        <div class="no_wrong_submission">No Wrong Submissions</div>
 
         {% else %}
 
