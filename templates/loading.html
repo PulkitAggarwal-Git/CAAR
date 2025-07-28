@@ -53,7 +53,7 @@
     {% elif value == "graphs" %}
     <form id="empty-form" action="{{url_for('problem_routes.graphs')}}" method="POST"></form>
 
-    {% elif value == "binary_search" %}
+    {% elif value == "bs" %}
     <form id="empty-form" action="{{url_for('problem_routes.binary_search')}}" method="POST"></form>
 
     {% elif value == "dfs" %}
@@ -73,6 +73,9 @@
 
     {% elif value == "combinatorics" %}
     <form id="empty-form" action="{{url_for('problem_routes.combinatorics')}}" method="POST"></form>
+
+    {% elif value == "bitmasks" %}
+    <form id="empty-form" action="{{url_for('problem_routes.bitmasks')}}" method="POST"></form>
 
     {% elif value == "brute_force" %}
     <form id="empty-form" action="{{url_for('problem_routes.brute_force')}}" method="POST"></form>
